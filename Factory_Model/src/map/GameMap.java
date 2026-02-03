@@ -1,41 +1,46 @@
+// File: GameMap.java
 package map;
 
 import tiles.Tile;
 
 public abstract class GameMap {
-    private final int COLS;
-    private final int ROWS;
     protected Tile[][] tiles;
+    protected int width;
+    protected int height;
 
-    protected GameMap(int cols, int rows) {
-        if (cols <= 0 || rows <= 0) {
-            throw new IllegalArgumentException("Map dimensions must be positive integers.");
-        }
-
-        this.COLS = cols;
-        this.ROWS = rows;
-        this.tiles = new Tile[rows][cols];
+    public GameMap(int width, int height) {
+        this.width = width;
+        this.height = height;
+        // allocate the grid so indexes are valid; subclasses should populate entries
+        this.tiles = new Tile[height][width];
     }
 
-    abstract Tile createTile();
+    // subclasses fill tiles[][] during construction or via a generate method
+    public abstract void generate();
 
+    // Safe display: guard against null tiles
     public void display() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                System.out.print(tiles[i][j].getCharacter() + " ");
-                if (j == COLS - 1) {
-                    System.out.print("\n");
-                }
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Tile t = tiles[i][j];
+                char ch = (t == null) ? '.' : t.getCharacter();
+                System.out.print(ch + " ");
             }
             System.out.println();
         }
     }
 
-    public void generate() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                tiles[i][j] = createTile();
-            }
+    // helper to set a tile
+    public void setTile(int row, int col, Tile tile) {
+        if (row >= 0 && row < height && col >= 0 && col < width) {
+            tiles[row][col] = tile;
         }
+    }
+
+    public Tile getTile(int row, int col) {
+        if (row >= 0 && row < height && col >= 0 && col < width) {
+            return tiles[row][col];
+        }
+        return null;
     }
 }

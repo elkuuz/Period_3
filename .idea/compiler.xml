@@ -8,8 +8,9 @@
         <outputRelativeToContentRoot value="true" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Design_Patterns" target="21" />
+    <bytecodeTargetLevel target="21">
+      <module name="Factory_Model" target="21" />
+      <module name="Period_3" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
