@@ -9,6 +9,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="21">
+      <module name="Decorator" target="21" />
       <module name="Factory_Model" target="21" />
       <module name="Period_3" target="21" />
     </bytecodeTargetLevel>
